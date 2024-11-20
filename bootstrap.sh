@@ -418,7 +418,7 @@ CHROOTSCRIPT
 
 echo "Configuring ZFS"
 chroot /mnt bash << CHROOTSCRIPT
-DEBIAN_FRONTEND=noninteractive apt install -y zfs-initramfs zfsutils-linux linuxheaders-amd64
+DEBIAN_FRONTEND=noninteractive apt install -y zfs-initramfs zfsutils-linux linux-headers-amd64
 echo "REMAKE_INITRD=yes" > /etc/dkms/zfs.conf
 CHROOTSCRIPT
 
