@@ -375,7 +375,6 @@ echo "Configuring keyboard layout..."
 
 chroot /mnt bash << CHROOTSCRIPT
 DEBIAN_FRONTEND=noninteractive apt install -y keyboard-configuration
-dpkg-reconfigure keyboard-configuration
 
 cat > /etc/default/keyboard <<KEYBOARD_CONFIGURATION
 XKBMODEL="$XKBMODEL"

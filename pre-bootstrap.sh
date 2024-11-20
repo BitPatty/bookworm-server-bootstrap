@@ -50,7 +50,7 @@ prepare_debian_12() {
     apt update
 
     echo "Installing necessary packages..."
-    apt install -y \
+    DEBIAN_FRONTEND=noninteractive apt install -y \
         bash \
         debootstrap \
         zfsutils-linux \
