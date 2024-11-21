@@ -58,13 +58,15 @@ SOURCES
         bash \
         debootstrap \
         dosfstools \
-        zfs-dkms \
-        zfsutils-linux \
         linux-headers-amd64 \
         gdisk \
         parted \
         grep \
         nano
+
+    DEBIAN_FRONTEND=noninteractive apt install -y \
+        zfs-dkms \
+        zfsutils-linux
 
     modprobe zfs
 
