@@ -444,7 +444,7 @@ CHROOTSCRIPT
 
 echo "Configuring bpool import"
 chroot /mnt bash << CHROOTSCRIPT
-cat /etc/systemd/system/zfs-import-bpool.service << SERVICE
+cat > /etc/systemd/system/zfs-import-bpool.service << SERVICE
 [Unit]
 DefaultDependencies=no
 Before=zfs-import-scan.service
