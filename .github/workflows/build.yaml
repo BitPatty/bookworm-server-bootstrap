@@ -1,0 +1,19 @@
+name: Run (Debian)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-bootstrap:
+    runs-on: ubuntu-latest  # GitHub does not have native Debian runners
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Test Scripts in a Debian Environment
+        run: |
+          docker run --rm -v "$(pwd):/scripts" -w /scripts debian:bookworm /bin/bash -c "
+            ./pre-bootstrap.sh
+            ./bootstrap.sh
+          "
