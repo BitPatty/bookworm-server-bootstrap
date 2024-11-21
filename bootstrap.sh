@@ -498,7 +498,7 @@ CHROOTSCRIPT
 
 echo "Configuring NTP"
 
-chrot /mnt bash << CHROOTSCRIPT
+chroot /mnt bash << CHROOTSCRIPT
 DEBIAN_FRONTEND=noninteractive apt install -y systemd-timesyncd
 cat > /etc/systemd/timesyncd.conf << TIMESYNC
 [Time]
