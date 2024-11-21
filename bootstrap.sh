@@ -301,7 +301,7 @@ mkdir /mnt/run/lock
 ############################################################################
 
 echo "Installing debian"
-debootstrap --arch=amd64 bookworm /mnt https://deb.debian.org/debian/
+debootstrap --variant=minbase --arch=amd64 bookworm /mnt https://deb.debian.org/debian/
 
 ############################################################################
 # ZFS cache
