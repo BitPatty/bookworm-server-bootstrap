@@ -424,7 +424,8 @@ CHROOTSCRIPT
 
 echo "Configuring ZFS"
 chroot /mnt bash << CHROOTSCRIPT
-DEBIAN_FRONTEND=noninteractive apt install -y zfs-initramfs zfsutils-linux linux-headers-amd64
+DEBIAN_FRONTEND=noninteractive apt install -y dpkg-dev zfsutils-linux linux-headers-amd64
+DEBIAN_FRONTEND=noninteractive apt install -y zfs-initramfs
 echo "REMAKE_INITRD=yes" > /etc/dkms/zfs.conf
 CHROOTSCRIPT
 
@@ -516,7 +517,7 @@ CHROOTSCRIPT
 echo "Configuring systemd-networkd for interface $INTERFACE_NAME..."
 
 chroot /mnt bash << CHROOTSCRIPT
-DEBIAN_FRONTEND=noninteractive apt install -y systemd-networkd systemd-resolved
+DEBIAN_FRONTEND=noninteractive apt install -y systemd-resolved
 cat > /etc/systemd/network/10-${INTERFACE_NAME}.network << NETWORK
 [Match]
 Name=${INTERFACE_NAME}
