@@ -15,5 +15,5 @@ jobs:
         run: |
           docker run --rm -v "$(pwd):/scripts" -w /scripts debian:bookworm /bin/bash -c "
             ./pre-bootstrap.sh
-            ./bootstrap.sh
+            ./bootstrap.sh example.config.sh
           "
