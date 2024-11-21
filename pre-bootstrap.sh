@@ -60,6 +60,7 @@ SOURCES
         zfsutils-linux \
         linux-headers-amd64 \
         gdisk \
+        parted \
         grep \
         nano
 
