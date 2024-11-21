@@ -35,18 +35,24 @@ fi
 
 
 REQUIRED_COMMANDS=(
+    awk
+    blkid
     chmod
+    chroot
+    dd
+    debootstrap
+    grep
+    lsblk
+    mkfs.fat
+    mount
+    partprobe
+    read
+    readlink
+    sgdisk
+    tac
+    xargs
     zfs
     zpool
-    sgdisk
-    partprobe
-    dd
-    lsblk
-    readlink
-    read
-    mkfs.fat
-    blkid
-    partprobe
 )
 
 # Ensure all required commands are installed
