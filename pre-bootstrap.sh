@@ -57,6 +57,7 @@ SOURCES
     DEBIAN_FRONTEND=noninteractive apt install -y \
         bash \
         debootstrap \
+        dosfstools \
         zfsutils-linux \
         linux-headers-amd64 \
         gdisk \
