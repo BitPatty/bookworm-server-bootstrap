@@ -58,6 +58,7 @@ SOURCES
         bash \
         debootstrap \
         dosfstools \
+        zfs-dkms \
         zfsutils-linux \
         linux-headers-amd64 \
         gdisk \
