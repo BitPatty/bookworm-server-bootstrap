@@ -2,7 +2,7 @@
 #
 # bootstrap.sh
 #
-# This script bootstraps the debian server
+# This script bootstraps the server
 #
 
 set -e
@@ -262,9 +262,9 @@ zfs create -o canmount=off -o mountpoint=none rpool/ROOT
 zfs create -o canmount=off -o mountpoint=none bpool/BOOT
 
 echo "Creating root/boot datasets"
-zfs create -o canmount=noauto -o mountpoint=/ rpool/ROOT/debian
-zfs mount rpool/ROOT/debian
-zfs create -o mountpoint=/boot bpool/BOOT/debian
+zfs create -o canmount=noauto -o mountpoint=/ rpool/ROOT/ubuntu
+zfs mount rpool/ROOT/ubuntu
+zfs create -o mountpoint=/boot bpool/BOOT/ubuntu
 
 echo "Creating default datasets"
 zfs create                     rpool/home
@@ -297,11 +297,11 @@ mount -t tmpfs tmpfs /mnt/run
 mkdir /mnt/run/lock
 
 ############################################################################
-# Debian Base Installation
+# Ubuntu Base Installation
 ############################################################################
 
-echo "Installing debian"
-debootstrap --variant=minbase --arch=amd64 bookworm /mnt https://deb.debian.org/debian/
+echo "Installing ubuntu"
+debootstrap --variant=minbase --arch=amd64 oracular /mnt https://archive.ubuntu.com/ubuntu/
 
 ############################################################################
 # ZFS cache
@@ -330,9 +330,11 @@ echo "Configuring apt sources"
 
 chroot /mnt bash << CHROOTSCRIPT
 cat > /etc/apt/sources.list << SOURCES
-deb https://deb.debian.org/debian bookworm main contrib
-deb https://deb.debian.org/debian bookworm-updates main contrib
-deb https://security.debian.org/debian-security bookworm-security main
+tee /etc/apt/sources.list << ENDSOURCESLIST
+deb http://archive.ubuntu.com/ubuntu oracular main universe restricted multiverse
+deb http://archive.ubuntu.com/ubuntu oracular-updates main universe restricted multiverse
+deb http://archive.ubuntu.com/ubuntu oracular-security main universe restricted multiverse
+deb http://archive.ubuntu.com/ubuntu oracular-backports main universe restricted multiverse
 SOURCES
 
 apt update
@@ -424,7 +426,7 @@ CHROOTSCRIPT
 
 echo "Configuring ZFS"
 chroot /mnt bash << CHROOTSCRIPT
-DEBIAN_FRONTEND=noninteractive apt install -y dpkg-dev zfsutils-linux zfs-dkms linux-headers-amd64
+DEBIAN_FRONTEND=noninteractive apt install -y zfsutils-linux
 DEBIAN_FRONTEND=noninteractive apt install -y zfs-initramfs
 echo "REMAKE_INITRD=yes" > /etc/dkms/zfs.conf
 CHROOTSCRIPT
@@ -652,8 +654,8 @@ sleep 5
 echo "Verifying ZFS cache content..."
 if [[ ! -s /etc/zfs/zfs-list.cache/bpool || ! -s /etc/zfs/zfs-list.cache/rpool ]]; then
   echo "Cache is empty. Forcing cache update..."
-  zfs set canmount=on bpool/BOOT/debian
-  zfs set canmount=noauto rpool/ROOT/debian
+  zfs set canmount=on bpool/BOOT/ubuntu
+  zfs set canmount=noauto rpool/ROOT/ubuntu
   
   # Wait for zed to update
   sleep 5
@@ -693,5 +695,5 @@ zpool export -a
 # Completion
 ############################################################################
 
-echo "Debian installation completed successfully!"
+echo "Ubuntu installation completed successfully!"
 echo "You can now reboot into the new system. Remember to change the root password after logging in."
