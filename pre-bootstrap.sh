@@ -43,8 +43,11 @@ prepare_debian_12() {
         exit 1
     fi
 
-    echo "Adding contributor packages"
-    sed -r -i'.BAK' 's/^deb(.*)$/deb\1 contrib/g' /etc/apt/sources.list
+    cat > /etc/apt/sources.list << SOURCES
+deb https://deb.debian.org/debian bookworm main contrib
+deb https://deb.debian.org/debian bookworm-updates main contrib
+deb https://security.debian.org/debian-security bookworm-security main
+SOURCES
 
     echo "Updating package lists..."
     apt update
