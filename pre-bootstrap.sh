@@ -66,6 +66,8 @@ SOURCES
         grep \
         nano
 
+    modprobe zfs
+
     echo "Finished package installation."
 }
 
