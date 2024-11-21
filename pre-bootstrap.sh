@@ -5,6 +5,7 @@
 # This script installs the dependencies for running the primary bootstrap
 # script (bootstrap.sh)
 
+set -e
 
 ############################################################################
 # Preconditions
